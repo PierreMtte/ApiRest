@@ -1,22 +1,34 @@
-const mongoose = require('mongoose');
-const { stringify } = require('uuid');
-const studentSchema = new mongoose.Schema({
+const { default: mongoose } = require('mongoose');
+const mongoosse = require('mongoose');
 
-    firstname: {
+const studentSchema = new mongoosse.Schema({
+    email:{
         type: String,
-        require: [true, 'Entrez un prénom'],
+        required: [true, 'Entrez un email'],
+        trim: true,
+        unique: true
+    },
+    password:{
+        type: String,
+        required: [true, 'Entrez un mot de passe'],
         trim: true
     },
-    lastname: {
+    firstname:{
         type: String,
-        require: [true, 'Entrez un nom'],
+        required: [true, 'Entrez un prénom'],
         trim: true
-    }
+    },
+    lastname:{
+        type: String,
+        required: [true, 'Entrez un nom'],
+        trim: true
+    },
+    classe: { type: mongoose.Schema.Types.ObjectId, ref: 'Classe' }
 },{
-    timestamps:{
+    timestamps: {
         createdAt: 'created_at',
-        updatedAt: "updated_at"
+        updatedAt: "updated_at",
     }
 });
 
-module.exports = mongoose.model('Student' , studentSchema);
+module.exports = mongoose.model('Student', studentSchema);
